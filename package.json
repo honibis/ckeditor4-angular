@@ -26,7 +26,9 @@
     "url": "https://github.com/ckeditor/ckeditor4-angular.git"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "ckeditor4-integrations-common": "^0.1.0"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1101.1",
     "@angular/animations": "^11.1.0",
