@@ -122,6 +122,14 @@ export class CKEditorComponent implements AfterViewInit, OnDestroy, ControlValue
 	 */
 	@Output() ready = new EventEmitter<CKEditor4.EventInfo>();
 
+
+	/**
+	 * Fires when the editor is created. Can be user to add buttons to toolbar before initialization etc.
+	 * event.
+	 */
+	@Output() created = new EventEmitter<CKEditor4.EventInfo>();
+
+
 	/**
 	 * Fires when the editor data is loaded, e.g. after calling setData()
 	 * https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#method-setData
@@ -294,6 +302,19 @@ export class CKEditorComponent implements AfterViewInit, OnDestroy, ControlValue
 		const instance: CKEditor4.Editor = this.type === CKEditor4.EditorType.INLINE
 			? CKEDITOR.inline( element, this.config )
 			: CKEDITOR.replace( element, this.config );
+
+		let createdEvent : CKEditor4.EventInfo = {
+			name: "created",
+			editor : instance,
+			cancel:undefined,
+			data:undefined,
+			listenerData:undefined,
+			sender:this,
+			removeListener:undefined,
+			stop:undefined
+		};
+		this.created.emit( createdEvent );
+
 
 		instance.once( 'instanceReady', evt => {
 			this.instance = instance;
